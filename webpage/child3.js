@@ -23,3 +23,7 @@ function _sendMessage(data) {
 }
 
 window.addEventListener("message", _receiveMessage);
+
+myButton.addEventListener('click', () => {
+  appWindow.postMessage('test', appOrigin);
+})
