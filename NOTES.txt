@@ -27,6 +27,9 @@
   - drag handle 
   - Close, minimize, maximize 
   - How to pass messages to all windows and webviews 
+  - Programmtically show debugger 
+  - Fix reload 
+  - Key command to reload
   - Clean up everything
 
 

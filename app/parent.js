@@ -7,20 +7,14 @@ var webview,
 
 window.addEventListener("load", function () {
   webview = document.getElementById("webview");
-  console.log("....got webview:", webview);
 
   window.addEventListener("loadstop", function (event) {
     window.addEventListener("message", function (event) {
-      console.log("....window received message:", event.data);
-
-      // Does this go to all windows or just the grandparent?
-      chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
-        console.log(response.farewell);
-      });
+      console.log("....window message received:", event.data);
 
       switch (event.data.command) {
-        case 'openWindow':
-          parentApp.openWindow();
+        case 'broadcast':
+          parentApp.broadcastParentToOthers();
           break;
 
         case 'close':
@@ -31,12 +25,20 @@ window.addEventListener("load", function () {
           parentApp.focus();
           break;
 
+        case 'maximize':  
+          parentApp.maximize();
+          break;
+
+        case 'messageChildToParent':
+          parentApp.messageParentToGrandParent();
+          break;
+
         case 'minimize':
           parentApp.minimize();
           break;
 
-        case 'maximize':  
-          parentApp.maximize();
+        case 'openWindow':
+          parentApp.openWindow();
           break;
       }
     });
@@ -49,28 +51,36 @@ window.addEventListener("load", function () {
   webview.src = targetOrigin;
 });
 
-// setInterval(() => {
-//   console.log('...parent')
-// }, 1000)
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  console.log("....runtime message received:", request);
+});
 
 class ParentApp {
   constructor() {
     document.getElementById('close').addEventListener('click', () => this.close());
-    document.getElementById('minimize').addEventListener('click', () => this.minimize());
     document.getElementById('maximize').addEventListener('click', () => this.maximize());
+    document.getElementById('minimize').addEventListener('click', () => this.minimize());
+  };
+  broadcastParentToOthers() {
+    chrome.runtime.sendMessage({ command : "broadcastParentToOthers" });
   };
   close() {
-    chrome.app.window.current().close(); // Same as window.close()
+    chrome.app.window.current().close();
   };
   focus() {
     chrome.app.window.current().focus();
   };
-  minimize() {
-    chrome.app.window.current().minimize();
-  };
   maximize() {
     const appWindow = chrome.app.window.current()
     appWindow.isMaximized() ? appWindow.restore() : appWindow.maximize();
+  };
+  messageParentToGrandParent() {
+    console.log('....passing messageParentToGrandParent');
+    // chrome.runtime.sendMessage({ command : "messageParentToGrandParent" }, (response) => { console.log('...response: ', response); });
+    chrome.runtime.sendMessage({ command : "messageParentToGrandParent" });
+  };
+  minimize() {
+    chrome.app.window.current().minimize();
   };
   openWindow() {
     chrome.app.window.create('index.html', {

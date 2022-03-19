@@ -31,6 +31,9 @@ window.addEventListener("message", _receiveMessage);
 
 
 class ChildApp {
+  broadcast() {
+    appWindow.postMessage({ command: 'broadcast' }, appOrigin);
+  }
   close() {
     appWindow.postMessage({ command: 'close' }, appOrigin);
   }
@@ -53,9 +56,10 @@ class ChildApp {
   sendMessage() {
     const message = myInput.value || 'default message3';
     appWindow.postMessage({
-      command: 'sendMessage',
+      command: 'messageChildToParent',
       message,
-    }, appOrigin);
+    // }, appOrigin);
+    }, '*');
   }
 }
 
