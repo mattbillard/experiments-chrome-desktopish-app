@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+  "name": "Codelab",
+  "version": "1",
+  "icons": {
+    "128": "icon_128.png"
+  },
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "minimum_chrome_version": "28",
+  "permissions": [ 
+    "<all_urls>",
+    "webview", 
+    "storage", 
+    "contextMenus", 
+    "alwaysOnTopWindows", 
+    "unlimitedStorage", 
+    "browser",
+    "chrome://favicon/",
+    "http://*/*", 
+    "https://*/*"
+  ],
+  "content_security_policy": "default-src 'self' 'unsafe-inline' 'unsafe-eval'; script-src 'unsafe-inline' 'unsafe-eval' 'self'; object-src 'self' 'unsafe-inline' 'unsafe-eval'"
+}
