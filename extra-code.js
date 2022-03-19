@@ -2,7 +2,7 @@
 
 // parent 
 chrome.app.window.getAll();
-chrome.app.window.current(); // AppWindow (not same as window)
+chrome.app.window.current(); // AppWindow (not same as window). Fails if you use key commands to reload parentWindow. Use chrome.runtime.reload() instead.
 chrome.app.window.current().close(); // Same as window.close()
 chrome.app.window.current().focus(); // Similar to restore
 chrome.app.window.current().minimize();

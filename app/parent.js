@@ -38,3 +38,23 @@ window.addEventListener("load", function () {
 // setInterval(() => {
 //   console.log('...parent')
 // }, 1000)
+
+class ParentApp {
+  constructor() {
+    document.getElementById('minimize').addEventListener('click', () => this.minimize());
+    document.getElementById('maximize').addEventListener('click', () => this.maximize());
+    document.getElementById('close').addEventListener('click', () => this.close());
+  };
+  close() {
+    chrome.app.window.current().close(); // Same as window.close()
+  };
+  minimize() {
+    chrome.app.window.current().minimize();
+  };
+  maximize() {
+    const appWindow = chrome.app.window.current()
+    appWindow.isMaximized() ? appWindow.restore() : appWindow.maximize();
+  };
+};
+
+const parentApp = new ParentApp();

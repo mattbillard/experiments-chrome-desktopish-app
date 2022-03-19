@@ -11,22 +11,33 @@
       position: relative;
       height: 20px;
       background: rgba(0, 0, 255, 0.5);
+      display: flex;
+      flex-direction: row;
+    }
+    .top-bar .drag {
+      flex-grow: 1;
       -webkit-app-region: drag;
       -webkit-user-select: none;
     }
+
     .background {
       position: absolute;
-      top: 20px;
+      top: 40px;
       left: 0;
       width: 100%;
-      height: calc(100% - 20px);
+      height: calc(100% - 40px);
       pointer-events: all;
     }
   </style>
 
 </head>
 <body>
-  <div class="top-bar">top bar</div>
+  <div class="top-bar">
+    <div class="drag">top bar</div>
+    <button id="minimize">_</button>
+    <button id="maximize">□</button>
+    <button id="close">X</button>
+  </div>
 
   <webview 
     id="webview" 
