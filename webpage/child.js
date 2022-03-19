@@ -1,3 +1,7 @@
+document.name = 'childWindow';
+window.name = 'childWindow';
+window.id = 'childWindow';
+
 var appWindow;
 var appOrigin;
 
@@ -24,7 +28,16 @@ function _sendMessage(data) {
 
 window.addEventListener("message", _receiveMessage);
 
-myButton.addEventListener('click', () => {
+function sendMessage() {
   const message = myInput.value || 'default message3';
-  appWindow.postMessage(message, appOrigin);
-})
+  appWindow.postMessage({
+    command: 'email',
+    message,
+  }, appOrigin);
+}
+
+function openWindow () {
+  appWindow.postMessage({
+    command: 'openWindow',
+  }, appOrigin);
+}

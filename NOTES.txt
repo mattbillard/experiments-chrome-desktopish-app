@@ -1,0 +1,34 @@
+
+
+- frame: 'none' is the important line that gets rid of buttons
+
+
+2022-03-17
+- I can open a new chrome app window but don't know if it's possible for a webapp to postMessage to its parent 
+- Iframes should be able to postMessage their parent but...
+- iframes don't appear to work b/c Chrome won't let you relax the CSP for apps (but you can do it for extensions)
+- So maybe I should make this an extension instead of an app...? Especially as apps are going away?
+
+
+2022-03-18
+- Chrome apps don't allow iframes but do allow webviews
+- Fortunately webviews and their parent can communicate (even though it is slightly more complicated than iframes)
+- Architecture
+  - Chrome app background.js (grandparent) opens local parent. (Chrome insists parent must be local)
+  - Parent has child webview that can be external webpage 
+  - Magic can allow them all to communicate 
+
+- Webviews' script files seem to be very cached. Need to add query string on end of script src. HTML seems to refresh fine though.
+
+
+
+- Next 
+  - Maybe parent's scripts can also be served from website, meaning no updates needed ever (No. Apps have very stict CSP settings. Extensions might be looser.)
+  - drag handle 
+  - Close, minimize, maximize 
+  - How to pass messages to all windows and webviews 
+  - Clean up everything
+
+
+
+

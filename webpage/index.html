@@ -9,13 +9,28 @@
 <body>
 
   <h1>Hello, let's code!</h1>
-  <input type="text" id="myInput" name="myInput" />
-  <br>
-  <button id="myButton">Open new window</button>
+  <input type="text" id="myInput" name="myInput" /><br>
+  <button id="myButton1" onclick="sendMessage()">Send Message</button>
 
-  <script id="myScript"></script>
+  <br>
+  <br>
+
+  <button id="myButton2" onclick="openWindow()">Open Window</button>
+
+  <!-- <script id="myScript"></script> -->
   <script>
-    myScript.src = `child.js?${Date.now()}`; // Needed to avoid caching
+    // myScript.src = `./child.js?${Date.now()}`; // Needed to avoid caching
+
+    var script = document.createElement('script');
+    Object.assign(script, { src: `./child.js?${Date.now()}` });
+    document.body.append(script);
+
+    // var script = document.createElement('script');
+    // Object.assign(script, { src: `./test.js?${Date.now()}` });
+    // document.body.append(script);
+
+    // document.body.append(Object.assign(document.createElement('script'), { src: `./test.js?${Date.now()}` }));
+
   </script>
 
 </body>
