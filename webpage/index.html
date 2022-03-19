@@ -9,9 +9,14 @@
 <body>
 
   <h1>Hello, let's code!</h1>
+  <input type="text" id="myInput" name="myInput" />
+  <br>
   <button id="myButton">Open new window</button>
 
-  <script src="child3.js"></script>
+  <script id="myScript"></script>
+  <script>
+    myScript.src = `child.js?${Date.now()}`; // Needed to avoid caching
+  </script>
 
 </body>
 </html>

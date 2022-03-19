@@ -25,5 +25,6 @@ function _sendMessage(data) {
 window.addEventListener("message", _receiveMessage);
 
 myButton.addEventListener('click', () => {
-  appWindow.postMessage('test', appOrigin);
+  const message = myInput.value || 'default message3';
+  appWindow.postMessage(message, appOrigin);
 })
