@@ -20,18 +20,17 @@
 
 </head>
 <body>
-  <!-- 
-    <h1>Hello, let's code!</h1>
-    <button id="myButton">Open new window</button>
-    <script src="script.js"></script>
-  -->
 
-  <!-- <div style="border: solid 10px black; position:absolute; top:0; bottom:0; left:0; right:0; padding:10px;"> -->
-    <!-- <webview class="background webview" id="panel-container" src="https://www.mattbillard.com" partition="persist:framelessapps" frameborder="0"></webview> -->
-  <!-- </div> -->
+  <webview 
+    id="webview" 
+    class="background webview" 
+    id="panel-container" 
+    partition="persist:framelessapps" 
+    frameborder="0"
+    ></webview>
+    <!-- src="http://localhost:3000"  -->
 
-  <webview id="webview" class="background webview" id="panel-container" src="http://localhost:8080" partition="persist:framelessapps" frameborder="0"></webview>
-  <!-- <iframe class="background webview" id="panel-container" src="http://localhost:8080" partition="persist:framelessapps" frameborder="0"></iframe> -->
+  <script src="parent.js"></script>
 
 </body>
 </html>

@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Codelab",
+  "name": "first-app2",
   "version": "1",
   "icons": {
     "128": "icon_128.png"
