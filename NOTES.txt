@@ -2,7 +2,9 @@
 
 - frame: 'none' is the important line that gets rid of buttons
 
-- Working on apps is a bit of a pain. I thin any time you change manifest.json or background.js, you need to remove and re-add the app to Chrome 
+X- Working on apps is a bit of a pain. I think any time you change manifest.json or background.js, you need to remove and re-add the app to Chrome. (There's a small reload icon next to yoru app on chrome://extensions/)
+- Chrome says it is going to deprecate apps and suggests PWA's instead. Can PWA's load with no close button + toolbars?
+
 
 
 2022-03-17
@@ -30,9 +32,11 @@
   - Close, minimize, maximize 
   - How to pass messages to all windows and webviews 
   X- Programmtically show debugger (Not possible)
+  X- Fix reload (You can reload everything with chrome.runtime.reload() or child with window.location.reload() but not parent or chrome.app.window.XXXX won't work.)
+  X- Key command to reload (I'll wait for this.)
   
-  - Fix reload 
-  - Key command to reload
+  - Learn extensions. See if it can overcome some of the problems below 
+  - Learn PWAs. 
   - Clean up everything
 
 

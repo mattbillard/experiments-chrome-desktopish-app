@@ -2,6 +2,8 @@ document.name = 'parentWindow';
 window.name = 'parentWindow';
 window.id = 'parentWindow';
 
+// window.location = 'http://localhost:8080'
+
 console.log('// Parent');
 
 var webview,
