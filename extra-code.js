@@ -20,13 +20,13 @@ chrome.contextMenus//...
 
 chrome.management.getSelf(console.log);
 
-chrome.runtime.getBackgroundPage(console.log); // Grandparent window (not AppWindow). Same as window.opener 
+chrome.runtime.getBackgroundPage(console.log); // Grandparent window (not AppWindow). Maybe same as  
 chrome.runtime.reload(); // Essentially reboots. Lose any extra windows you've opened 
 chrome.runtime.sendMessage();
 
 chrome.storage//...
 
-
+window.opener(); // The window that opened parent. Could be grandparent or another parent
 window.location.reload(); // DOES NOT WORK
 
 

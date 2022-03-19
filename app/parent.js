@@ -2,14 +2,21 @@ document.name = 'parentWindow';
 window.name = 'parentWindow';
 window.id = 'parentWindow';
 
+console.log('// Parent');
+
 var webview,
   targetOrigin = "http://localhost:3000/index.html?"+Date.now(); // Needed to prevent caching
 
-window.addEventListener("load", function () {
+window.addEventListener("load", () => {
   webview = document.getElementById("webview");
 
-  window.addEventListener("loadstop", function (event) {
-    window.addEventListener("message", function (event) {
+  console.log('...sending helloGrandparent')
+  chrome.runtime.sendMessage({ command : "helloGrandparent" }, (response) => { 
+    console.log('...response: ', response); 
+  });
+
+  window.addEventListener("loadstop", (event) => {
+    window.addEventListener("message", (event) => {
       console.log("....window message received:", event.data);
 
       switch (event.data.command) {
@@ -44,7 +51,8 @@ window.addEventListener("load", function () {
     });
 
     // Send initial message so child knows who parent is and can reply
-    webview.contentWindow.postMessage({ command: "handshake", }, "*" );
+    console.log('....sending handshake to child')
+    webview.contentWindow.postMessage({ command: "handshakeToChild", }, "*" );
   });
 
   // Set webview src attribute
@@ -76,8 +84,9 @@ class ParentApp {
   };
   messageParentToGrandParent() {
     console.log('....passing messageParentToGrandParent');
-    // chrome.runtime.sendMessage({ command : "messageParentToGrandParent" }, (response) => { console.log('...response: ', response); });
-    chrome.runtime.sendMessage({ command : "messageParentToGrandParent" });
+    chrome.runtime.getBackgroundPage(backgroundWindow => {
+      backgroundWindow.postMessage({ command : "messageParentToGrandParent" });
+    })
   };
   minimize() {
     chrome.app.window.current().minimize();

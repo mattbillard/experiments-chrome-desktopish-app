@@ -2,31 +2,25 @@ document.name = 'childWindow';
 window.name = 'childWindow';
 window.id = 'childWindow';
 
+console.log('// Child');
+
 var appWindow;
 var appOrigin;
 
-function _receiveMessage(event) {
+
+window.addEventListener("message", (event) => {
+  console.log("....window message received:", event.data);
+
   // First message: store appWindow and appOrigin
   if (!appWindow || !appOrigin) {
     appWindow = event.source;
     appOrigin = event.origin;
 
-    _sendMessage({
-      command: "handshakereply",
-    });
+    console.log('....sending handShakeReplyToParent')
+    // appWindow.postMessage({ command: "handShakeReplyToParent", }, appOrigin);
+    appWindow.postMessage({ command: "handShakeReplyToParent", }, '*');
   }
-}
-
-function _sendMessage(data) {
-  if (!appWindow || !appOrigin) {
-    return console.error(
-      "Cannot send message to Chrome wrapper app - communication channel has not yet been opened"
-    );
-  }
-  appWindow.postMessage(data, appOrigin);
-}
-
-window.addEventListener("message", _receiveMessage);
+});
 
 
 
@@ -58,7 +52,6 @@ class ChildApp {
     appWindow.postMessage({
       command: 'messageChildToParent',
       message,
-    // }, appOrigin);
     }, '*');
   }
 }
