@@ -31,6 +31,9 @@
 
 
 2022-03-19
-- Parent is not allowed to load non-local scripts in Apps. This makes updates more difficult. Maybe extensions have less scrict CSP settings.  
-- Drag bar only works in parent, not in child webview, so the toolbar with minimize, close, etc probably needs to be in parent... which means more code in parent... which once again makes updates difficult. 
-
+- Parents are very inconvenient 
+  - Can't use onclick in HTML. Need to attach it from JS using addEventListener = awkward/inconvenient to code.
+  - Not allowed to load non-local scripts in Apps
+  - Drag bar only works in parent, not in child webview, so the toolbar with minimize, close, etc probably needs to be in parent.
+  - More code in parent = more difficult to distribute updates 
+  - Maybe extensions have less scrict CSP settings

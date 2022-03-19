@@ -18,12 +18,26 @@ window.addEventListener("load", function () {
         console.log(response.farewell);
       });
 
-      if (event.data.command === 'openWindow') {
+      switch (event.data.command) {
+        case 'openWindow':
+          parentApp.openWindow();
+          break;
 
-        chrome.app.window.create('index.html', {
-          id: 'parentAppWindow' + String(Date.now()),
-          frame: 'none',
-        });
+        case 'close':
+          parentApp.close();
+          break;
+
+        case 'focus':
+          parentApp.focus();
+          break;
+
+        case 'minimize':
+          parentApp.minimize();
+          break;
+
+        case 'maximize':  
+          parentApp.maximize();
+          break;
       }
     });
 
@@ -41,12 +55,15 @@ window.addEventListener("load", function () {
 
 class ParentApp {
   constructor() {
+    document.getElementById('close').addEventListener('click', () => this.close());
     document.getElementById('minimize').addEventListener('click', () => this.minimize());
     document.getElementById('maximize').addEventListener('click', () => this.maximize());
-    document.getElementById('close').addEventListener('click', () => this.close());
   };
   close() {
     chrome.app.window.current().close(); // Same as window.close()
+  };
+  focus() {
+    chrome.app.window.current().focus();
   };
   minimize() {
     chrome.app.window.current().minimize();
@@ -55,6 +72,12 @@ class ParentApp {
     const appWindow = chrome.app.window.current()
     appWindow.isMaximized() ? appWindow.restore() : appWindow.maximize();
   };
+  openWindow() {
+    chrome.app.window.create('index.html', {
+      id: 'parentAppWindow' + String(Date.now()),
+      frame: 'none',
+    });
+  }
 };
 
 const parentApp = new ParentApp();

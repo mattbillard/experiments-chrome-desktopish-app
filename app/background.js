@@ -13,7 +13,7 @@ chrome.app.runtime.onLaunched.addListener(function() {
 
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  console.log('....message from sender:', sender);
+  console.log('....message from sender:', request, sender);
   if (request.greeting === "hello") {
     sendResponse({farewell: "goodbye"});
   }

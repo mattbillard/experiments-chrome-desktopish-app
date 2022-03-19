@@ -28,16 +28,36 @@ function _sendMessage(data) {
 
 window.addEventListener("message", _receiveMessage);
 
-function sendMessage() {
-  const message = myInput.value || 'default message3';
-  appWindow.postMessage({
-    command: 'email',
-    message,
-  }, appOrigin);
+
+
+class ChildApp {
+  close() {
+    appWindow.postMessage({ command: 'close' }, appOrigin);
+  }
+  focus() {
+    setTimeout(() => {
+      appWindow.postMessage({ command: 'focus' }, appOrigin);
+    }, 5000);
+  }
+  minimize() {
+    appWindow.postMessage({ command: 'minimize' }, appOrigin);
+  }
+  maximize() {
+    appWindow.postMessage({ command: 'maximize' }, appOrigin);
+  }
+  openWindow () {
+    appWindow.postMessage({
+      command: 'openWindow',
+    }, appOrigin);
+  }
+  sendMessage() {
+    const message = myInput.value || 'default message3';
+    appWindow.postMessage({
+      command: 'sendMessage',
+      message,
+    }, appOrigin);
+  }
 }
 
-function openWindow () {
-  appWindow.postMessage({
-    command: 'openWindow',
-  }, appOrigin);
-}
+const childApp = new ChildApp();
+
