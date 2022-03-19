@@ -3,10 +3,20 @@
 <head>
   <meta charset="utf-8">
   <style>
+      .top-bar {
+        height: 20px;
+        background: rgba(255, 0, 0, 0.5);
+        -webkit-app-region: drag;
+        -webkit-user-select: none;
+      }
   </style>
 
 </head>
 <body>
+  <div class="top-bar">
+    top bar
+    <button onclick="console.log('....test')">Button</button>
+  </div>
 
   <h1>Hello, let's code!</h1>
   <input type="text" id="myInput" name="myInput" /><br>

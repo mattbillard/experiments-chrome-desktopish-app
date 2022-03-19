@@ -4,22 +4,29 @@
   <meta charset="utf-8">
   <style>
     body {
-      /* background-color: black; */
+      background-color: #ffc;
     }  
+    .top-bar {
+      /* z-index: 2; */
+      position: relative;
+      height: 20px;
+      background: rgba(0, 0, 255, 0.5);
+      -webkit-app-region: drag;
+      -webkit-user-select: none;
+    }
     .background {
       position: absolute;
-      /* top: 0; */
-      top: 10%;
+      top: 20px;
       left: 0;
       width: 100%;
-      /* height: 100%; */
-      height: 90%;
+      height: calc(100% - 20px);
       pointer-events: all;
     }
   </style>
 
 </head>
 <body>
+  <div class="top-bar">top bar</div>
 
   <webview 
     id="webview" 
@@ -27,6 +34,7 @@
     id="panel-container" 
     partition="persist:framelessapps" 
     frameborder="0"
+    allowtransparency="on"
     ></webview>
     <!-- src="http://localhost:3000"  -->
 
