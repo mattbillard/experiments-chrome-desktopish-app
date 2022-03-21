@@ -37,6 +37,7 @@ X- Working on apps is a bit of a pain. I think any time you change manifest.json
   
   - Learn extensions. See if it can overcome some of the problems below 
   - Learn PWAs. 
+  - Can you open a Chrome App from a URL?
   - Clean up everything
 
 
@@ -47,6 +48,11 @@ X- Working on apps is a bit of a pain. I think any time you change manifest.json
   - Drag bar only works in parent, not in child webview, so the toolbar with minimize, close, etc probably needs to be in parent.
   - More code in parent = more difficult to distribute updates 
   - Maybe extensions have less scrict CSP settings
+- Iframes are allowed for manifests with  "manifest_version": 3
+  - Very similar result to webview 
+  - Results in 1 fewer Chrome debuggers that need to be opened 
+  - Both have the problem where you press ctrl+R in the console, it reloads the parent, and chrome.app.window.xxxx stops working 
+  - Unfortunatley v3 doesn't relax CSP to allow inline scripts or scripts pointing to external sources 
 
 
 
@@ -55,9 +61,7 @@ X- Working on apps is a bit of a pain. I think any time you change manifest.json
 
 
 
-
-
-Termainl Command 
+Interesting Termainal Commands
 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --auto-open-devtools-for-tabs
 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --new-window --app=https://www.mattbillard.com 
 

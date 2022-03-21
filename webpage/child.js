@@ -4,21 +4,21 @@ window.id = 'childWindow';
 
 console.log('// Child');
 
-var appWindow;
-var appOrigin;
+var parentWindow;
+var parentOrigin;
 
 
 window.addEventListener("message", (event) => {
   console.log("....window message received:", event.data);
 
-  // First message: store appWindow and appOrigin
-  if (!appWindow || !appOrigin) {
-    appWindow = event.source;
-    appOrigin = event.origin;
+  // First message: store parentWindow and parentOrigin
+  if (!parentWindow || !parentOrigin) {
+    parentWindow = event.source;
+    parentOrigin = event.origin;
 
     console.log('....sending handShakeReplyToParent')
-    // appWindow.postMessage({ command: "handShakeReplyToParent", }, appOrigin);
-    appWindow.postMessage({ command: "handShakeReplyToParent", }, '*');
+    // parentWindow.postMessage({ command: "handShakeReplyToParent", }, parentOrigin);
+    parentWindow.postMessage({ command: "handShakeReplyToParent", }, '*');
   }
 });
 
@@ -26,30 +26,31 @@ window.addEventListener("message", (event) => {
 
 class ChildApp {
   broadcast() {
-    appWindow.postMessage({ command: 'broadcast' }, appOrigin);
+    parentWindow.postMessage({ command: 'broadcast' }, '*');
   }
   close() {
-    appWindow.postMessage({ command: 'close' }, appOrigin);
+    parentWindow.postMessage({ command: 'close' }, '*');
   }
   focus() {
     setTimeout(() => {
-      appWindow.postMessage({ command: 'focus' }, appOrigin);
+      parentWindow.postMessage({ command: 'focus' }, '*');
     }, 5000);
   }
   minimize() {
-    appWindow.postMessage({ command: 'minimize' }, appOrigin);
+    parentWindow.postMessage({ command: 'minimize' }, '*');
   }
   maximize() {
-    appWindow.postMessage({ command: 'maximize' }, appOrigin);
+    parentWindow.postMessage({ command: 'maximize' }, '*');
   }
   openWindow () {
-    appWindow.postMessage({
+    parentWindow.postMessage({
       command: 'openWindow',
-    }, appOrigin);
+    }, '*');
   }
-  sendMessage() {
+  sendMessage(event) {
+    event.preventDefault();
     const message = myInput.value || 'default message3';
-    appWindow.postMessage({
+    parentWindow.postMessage({
       command: 'messageChildToParent',
       message,
     }, '*');

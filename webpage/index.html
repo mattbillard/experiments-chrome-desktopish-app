@@ -6,8 +6,8 @@
       .top-bar {
         height: 20px;
         background: rgba(255, 0, 0, 0.5);
-        /* -webkit-app-region: drag;
-        -webkit-user-select: none; */
+        -webkit-app-region: drag; /* NOTE: unfortunately, the dragable area in the iframe does not work */
+        /* -webkit-user-select: none; */
         text-align: right;
       }
   </style>
@@ -21,11 +21,13 @@
   </div>
 
   <h1>Hello, let's code!</h1>
-  <input type="text" id="myInput" name="myInput" /> <br>
-  <button onclick="childApp.sendMessage()">Message Parent</button> <br>
-  <button onclick="childApp.broadcast()">Broadcast</button> <br>
+  <form onsubmit="childApp.sendMessage(event)">
+    <input type="text" id="myInput" name="myInput" /> 
+    <button type="submit">Message Parent</button> <br>
+  </form>
   
   <br>
+  <button onclick="childApp.broadcast()">Broadcast</button> <br>
   <button onclick="childApp.focus()">Focus in 5 seconds</button> <br>
   <button onclick="childApp.openWindow()">Open Window</button> <br>
 

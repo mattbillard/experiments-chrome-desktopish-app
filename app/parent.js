@@ -17,7 +17,8 @@ window.addEventListener("load", () => {
     console.log('...response: ', response); 
   });
 
-  window.addEventListener("loadstop", (event) => {
+  window.addEventListener("loadstop", (event) => { // For webview
+  // webview.addEventListener("load", (event) => { // For iframe
     window.addEventListener("message", (event) => {
       console.log("....window message received:", event.data);
 
@@ -67,9 +68,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 class ParentApp {
   constructor() {
-    document.getElementById('close').addEventListener('click', () => this.close());
-    document.getElementById('maximize').addEventListener('click', () => this.maximize());
-    document.getElementById('minimize').addEventListener('click', () => this.minimize());
+    // document.getElementById('close').addEventListener('click', () => this.close());
+    // document.getElementById('maximize').addEventListener('click', () => this.maximize());
+    // document.getElementById('minimize').addEventListener('click', () => this.minimize());
   };
   broadcastParentToOthers() {
     chrome.runtime.sendMessage({ command : "broadcastParentToOthers" });
