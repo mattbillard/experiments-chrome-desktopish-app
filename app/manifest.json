@@ -18,5 +18,13 @@
     "alwaysOnTopWindows", 
     "unlimitedStorage", 
     "browser"
-  ]
+  ],
+  "url_handlers": {
+    "openApp": {
+      "matches": [
+        "http://localhost:3000/desktop/*"
+      ],
+      "title": "Open App"
+    }
+  }
 }

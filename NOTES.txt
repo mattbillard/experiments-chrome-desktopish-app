@@ -34,10 +34,12 @@ X- Working on apps is a bit of a pain. I think any time you change manifest.json
   X- Programmtically show debugger (Not possible)
   X- Fix reload (You can reload everything with chrome.runtime.reload() or child with window.location.reload() but not parent or chrome.app.window.XXXX won't work.)
   X- Key command to reload (I'll wait for this.)
-  
-  - Learn extensions. See if it can overcome some of the problems below 
-  - Learn PWAs. 
   - Can you open a Chrome App from a URL?
+  - Learn extensions. See if it can overcome some of the problems below 
+  - How are updates pushed?
+  
+  - Options page to choose URL
+  - Learn PWAs. 
   - Clean up everything
 
 
