@@ -32,12 +32,12 @@ X- Working on apps is a bit of a pain. I think any time you change manifest.json
   - Close, minimize, maximize 
   - How to pass messages to all windows and webviews 
   X- Programmtically show debugger (Not possible)
-  X- Fix reload (You can reload everything with chrome.runtime.reload() or child with window.location.reload() but not parent or chrome.app.window.XXXX won't work.)
   X- Key command to reload (I'll wait for this.)
   - Can you open a Chrome App from a URL?
   - Learn extensions. See if it can overcome some of the problems below 
   - How are updates pushed?
   
+  - Fix reload (You can reload everything with chrome.runtime.reload() or child with window.location.reload() but not parent or chrome.app.window.XXXX won't work.)
   - Options page to choose URL
   - Learn PWAs. 
   - Clean up everything
@@ -52,6 +52,7 @@ X- Working on apps is a bit of a pain. I think any time you change manifest.json
   - Maybe extensions have less scrict CSP settings
 - Iframes are allowed for manifests with  "manifest_version": 3
   - Very similar result to webview 
+  - Webviews cache aggresively, and it can be difficult to get them to show file changes 
   - Results in 1 fewer Chrome debuggers that need to be opened 
   - Both have the problem where you press ctrl+R in the console, it reloads the parent, and chrome.app.window.xxxx stops working 
   - Unfortunatley v3 doesn't relax CSP to allow inline scripts or scripts pointing to external sources 

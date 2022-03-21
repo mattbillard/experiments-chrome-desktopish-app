@@ -31,10 +31,7 @@
   <button onclick="childApp.focus()">Focus in 5 seconds</button> <br>
   <button onclick="childApp.openWindow()">Open Window</button> <br>
 
-  <!-- <script id="myScript"></script> -->
   <script>
-    // myScript.src = `./child.js?${Date.now()}`; // Needed to avoid caching
-
     var script = document.createElement('script');
     Object.assign(script, { src: `./child.js?${Date.now()}` });
     document.body.append(script);
@@ -42,9 +39,6 @@
     // var script = document.createElement('script');
     // Object.assign(script, { src: `./test.js?${Date.now()}` });
     // document.body.append(script);
-
-    // document.body.append(Object.assign(document.createElement('script'), { src: `./test.js?${Date.now()}` }));
-
   </script>
 
 </body>

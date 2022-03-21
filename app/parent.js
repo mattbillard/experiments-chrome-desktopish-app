@@ -17,8 +17,8 @@ window.addEventListener("load", () => {
     console.log('...response: ', response); 
   });
 
-  window.addEventListener("loadstop", (event) => { // For webview
-  // webview.addEventListener("load", (event) => { // For iframe
+  // window.addEventListener("loadstop", (event) => { // For webview
+  webview.addEventListener("load", (event) => { // For iframe
     window.addEventListener("message", (event) => {
       console.log("....window message received:", event.data);
 
