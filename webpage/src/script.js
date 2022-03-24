@@ -20,21 +20,33 @@ window.addEventListener("message", (event) => {
     // parentWindow.postMessage({ command: "handShakeReplyToParent", }, parentOrigin);
     parentWindow.postMessage({ command: "handShakeReplyToParent", }, '*');
   }
+
+  switch (event.data.command) {
+    case 'broadcastFromParent': {
+      const { message } = event.data;
+      const messagesElem = window.messages;
+      messagesElem.innerHTML += `\n${message}`;
+      messagesElem.classList.add('flash');
+      setTimeout(() => messagesElem.classList.remove('flash'), 250);
+      break;
+    }
+
+  }
 });
 
 
 
 class ChildApp {
-  broadcast() {
-    parentWindow.postMessage({ command: 'broadcast' }, '*');
+  broadcast(event) {
+    event.preventDefault();
+    const message = myInput.value || '';
+    parentWindow.postMessage({ 
+      command: 'broadcast', 
+      message 
+    }, '*');
   }
   close() {
     parentWindow.postMessage({ command: 'close' }, '*');
-  }
-  focus() {
-    setTimeout(() => {
-      parentWindow.postMessage({ command: 'focus' }, '*');
-    }, 5000);
   }
   minimize() {
     parentWindow.postMessage({ command: 'minimize' }, '*');
@@ -45,14 +57,6 @@ class ChildApp {
   openWindow () {
     parentWindow.postMessage({
       command: 'openWindow',
-    }, '*');
-  }
-  sendMessage(event) {
-    event.preventDefault();
-    const message = myInput.value || 'default message3';
-    parentWindow.postMessage({
-      command: 'messageChildToParent',
-      message,
     }, '*');
   }
 }

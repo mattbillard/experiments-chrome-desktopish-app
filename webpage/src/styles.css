@@ -42,3 +42,15 @@ body {
   padding: 4px 4px;
   margin-bottom: 2px;
 }
+
+pre {
+  padding: 10px;
+  border: solid 1px #bbb;
+  background: #eee;
+  border-radius: 5px;
+}
+
+pre.flash {
+  border: solid 1px #eee;
+  background: #fff;
+}

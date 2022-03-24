@@ -23,9 +23,11 @@ window.addEventListener("load", () => {
       console.log("....window message received:", event.data);
 
       switch (event.data.command) {
-        case 'broadcast':
-          parentApp.broadcastParentToOthers();
+        case 'broadcast':{
+          const message = event.data.message;
+          parentApp.broadcastParentToOthers(message);
           break;
+        }
 
         case 'close':
           parentApp.close();
@@ -64,6 +66,17 @@ window.addEventListener("load", () => {
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   console.log("....runtime message received:", request);
+
+  switch (request.command) {
+    case 'broadcastParentToOthers': {
+      const message = request.message;
+      webview.contentWindow.postMessage({ 
+        command: "broadcastFromParent", 
+        message,
+      }, "*" );
+      break;
+    }
+  }
 });
 
 class ParentApp {
@@ -72,8 +85,11 @@ class ParentApp {
     // document.getElementById('maximize').addEventListener('click', () => this.maximize());
     // document.getElementById('minimize').addEventListener('click', () => this.minimize());
   };
-  broadcastParentToOthers() {
-    chrome.runtime.sendMessage({ command : "broadcastParentToOthers" });
+  broadcastParentToOthers(message) {
+    chrome.runtime.sendMessage({ 
+      command : "broadcastParentToOthers",
+      message,
+    });
   };
   close() {
     chrome.app.window.current().close();
@@ -95,9 +111,10 @@ class ParentApp {
     chrome.app.window.current().minimize();
   };
   openWindow() {
-    chrome.app.window.create('index.html', {
+    chrome.app.window.create('./src/index.html', {
       id: 'parentAppWindow' + String(Date.now()),
       frame: 'none',
+      bounds: { width: 500, height: 600 },
     });
   }
 };
