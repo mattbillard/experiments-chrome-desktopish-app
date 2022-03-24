@@ -2,16 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <style>
-      .top-bar {
-        height: 20px;
-        background: rgba(255, 0, 0, 0.5);
-        -webkit-app-region: drag; /* NOTE: unfortunately, the dragable area in the iframe does not work */
-        /* -webkit-user-select: none; */
-        text-align: right;
-      }
-  </style>
-
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
   <div class="top-bar">
@@ -20,16 +11,19 @@
     <button onclick="childApp.close()">X</button>
   </div>
 
-  <h1>Hello, let's code!</h1>
-  <form onsubmit="childApp.sendMessage(event)">
-    <input type="text" id="myInput" name="myInput" /> 
-    <button type="submit">Message Parent</button> <br>
-  </form>
-  
-  <br>
-  <button onclick="childApp.broadcast()">Broadcast</button> <br>
-  <button onclick="childApp.focus()">Focus in 5 seconds</button> <br>
-  <button onclick="childApp.openWindow()">Open Window</button> <br>
+  <div class="content">
+    <h1>Hello, let's code!</h1>
+    <form onsubmit="childApp.sendMessage(event)">
+      <input type="text" id="myInput" name="myInput" /> 
+      <button type="submit">Message Parent</button> <br>
+    </form>
+    
+    <br>
+    <button onclick="childApp.broadcast()">Broadcast</button> <br>
+    <button onclick="childApp.focus()">Focus in 5 seconds</button> <br>
+    <button onclick="childApp.openWindow()">Open Window</button> <br>
+  </div>
+
 
   <script>
     var script = document.createElement('script');
