@@ -10,7 +10,7 @@ window.addEventListener("message", (event) => {
 });
 
 chrome.app.runtime.onLaunched.addListener(() => {
-  chrome.app.window.create('index.html', { // Chrome insists URL must be local
+  chrome.app.window.create('./src/index.html', { // Chrome insists URL must be local
     id: 'parentAppWindow0',
     // bounds: { width: 500, height: 500 },
     frame: 'none', // Important: removes Chrome close, minimize, maximize button

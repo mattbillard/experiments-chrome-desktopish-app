@@ -3,7 +3,7 @@
   "name": "first-app2",
   "version": "1",
   "icons": {
-    "128": "icon_128.png"
+    "128": "./src/icon_128.png"
   },
   "app": {
     "background": {

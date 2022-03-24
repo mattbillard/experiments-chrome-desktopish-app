@@ -27,12 +27,8 @@
 
   <script>
     var script = document.createElement('script');
-    Object.assign(script, { src: `./child.js?${Date.now()}` });
+    Object.assign(script, { src: `./script.js?${Date.now()}` });
     document.body.append(script);
-
-    // var script = document.createElement('script');
-    // Object.assign(script, { src: `./test.js?${Date.now()}` });
-    // document.body.append(script);
   </script>
 
 </body>
