@@ -17,10 +17,10 @@ chrome.app.runtime.onLaunched.addListener(() => {
   });
 });
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  console.log('background: runtime message received:', request);
+window.addEventListener("message", (event) => {
+  console.log('background: window message received:', event);
 
-  switch(request.command) {
+  switch(event.data.command) {
     case 'reloadAll':
       chrome.runtime.reload();
       break;

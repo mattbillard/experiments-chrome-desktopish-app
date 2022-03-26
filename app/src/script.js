@@ -3,12 +3,20 @@ window.name = 'parentWindow';
 console.log('// Parent');
 
 class ParentApp {
-  containerElem = document.getElementById("container");
+  iframeElem = document.getElementById("container");
 
   constructor() {
     this.addChromeListeners(); // NOTE: Chrome app window listenes for broadcasts from other Chrome app windows
     this.addWindowListeners(); // NOTE: parent window listens to messages from iframe child window
-    this.containerElem.src = "http://localhost:3000/index.html?"+Date.now(); // NOTE: need random string on end to prevent caching;
+    
+    // NOTE: load iframe
+    this.iframeElem.src = "http://localhost:3000/index.html?"+Date.now(); // NOTE: need random string on end to prevent caching;
+
+    // NOTE: Send initial message so child knows who parent is and can reply
+    // window.addEventListener("loadstop", (event) => { // NOTE: syntax for webview is slightly different from iframe
+    this.iframeElem.addEventListener("load", (event) => {
+      this.iframeElem.contentWindow.postMessage({ command: "handshakeToChild", }, "*" );
+    });
   };
 
   addChromeListeners() {
@@ -18,7 +26,7 @@ class ParentApp {
       switch (request.command) {
         case 'broadcastParentToOthers': {
           const message = request.message;
-          this.containerElem.contentWindow.postMessage({ 
+          this.iframeElem.contentWindow.postMessage({ 
             command: "broadcastFromParent", 
             message,
           }, "*" );
@@ -29,46 +37,39 @@ class ParentApp {
   }
 
   addWindowListeners() {
-    // window.addEventListener("loadstop", (event) => { // NOTE: syntax for webview is slightly different from iframe
-    this.containerElem.addEventListener("load", (event) => {
-      window.addEventListener("message", (event) => {
-        console.log("parent: window message received:", event.data);
-    
-        switch (event.data.command) {
-          case 'broadcastFromChild':
-            parentApp.broadcastParentToOthers(event.data.message);
-            break;
+    window.addEventListener("message", (event) => {
+      console.log("parent: window message received:", event.data);
+  
+      switch (event.data.command) {
+        case 'broadcastFromChild':
+          parentApp.broadcastParentToOthers(event.data.message);
+          break;
 
-          case 'close':
-            chrome.app.window.current().close();
-            break;
+        case 'close':
+          chrome.app.window.current().close();
+          break;
 
-          case 'focus':
-            chrome.app.window.current().focus();
-            break;
+        case 'focus':
+          chrome.app.window.current().focus();
+          break;
 
-          case 'maximize':  
-            const appWindow = chrome.app.window.current()
-            appWindow.isMaximized() ? appWindow.restore() : appWindow.maximize();
-            break;
+        case 'maximize':  
+          const appWindow = chrome.app.window.current()
+          appWindow.isMaximized() ? appWindow.restore() : appWindow.maximize();
+          break;
 
-          case 'minimize':
-            chrome.app.window.current().minimize();
-            break;
+        case 'minimize':
+          chrome.app.window.current().minimize();
+          break;
 
-          case 'openWindow':
-            parentApp.openWindow();
-            break;
+        case 'openWindow':
+          parentApp.openWindow();
+          break;
 
-          case 'reloadAll':
-            parentApp.reloadAll();
-            break;
-        }
-      });
-
-      // Send initial message so child knows who parent is and can reply
-      console.log('parent: sending handshake to child')
-      this.containerElem.contentWindow.postMessage({ command: "handshakeToChild", }, "*" );
+        case 'reloadAll':
+          parentApp.reloadAll();
+          break;
+      }
     });
   }
   
@@ -91,7 +92,7 @@ class ParentApp {
   reloadAll() {
     // NOTE: message background.js
     chrome.runtime.getBackgroundPage(backgroundWindow => {
-      backgroundWindow.postMessage({ command : "messageParentToGrandParent" });
+      backgroundWindow.postMessage({ command : "reloadAll" });
     })
   };
 };

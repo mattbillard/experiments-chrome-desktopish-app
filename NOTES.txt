@@ -71,7 +71,30 @@ Interesting Termainal Commands
 
 
 
-
+COMMUNICATION 
+- Summary 
+  - manifest.json opens background.js 
+  - background.js opens one or more local HTML files. We'll call these "parent" Chrome app windows 
+  - Parent loads an iframe to a separate website. We'll call these child windows 
+  - The Chrome app windows can do things the children cannot: broadcast messages, close, minimize, maximize, etc so the child essentially needs to ask the parent to do things for it 
+- Simplified APIs
+  - parent to background.js 
+      chrome.runtime.getBackgroundPage(backgroundWindow => backgroundWindow.postMessage(....))
+  - parent to all other Chrome app windows 
+    - Send 
+      chrome.runtime.sendMessage(....)
+    - Receive
+      chrome.runtime.onMessage.addListener(....)
+  - parent to iframe child windows 
+    - Send 
+      iframeElem.contentWindow.postMessage(...., '*')
+    - Receive 
+      window.addEventListener("message", ....)
+  - child iframe to parent 
+    - Send
+      parentWindow.postMessage(...., '*')
+    - Receive 
+      window.addEventListener("message", ....)
 
 
 
