@@ -11,7 +11,7 @@ class ChildApp {
 
   addEventListeners() {
     window.addEventListener("message", (event) => {
-      console.log("....window message received:", event.data);
+      console.log("child: window message received:", event.data);
     
       // NOTE: store this.parentWindow and this.parentOrigin from first message
       if (!this.parentWindow) {
@@ -36,7 +36,7 @@ class ChildApp {
     }, '*');
   };
 
-  commandParent(command) {
+  messageParent(command) {
     this.parentWindow.postMessage({ command }, '*');
   }
 

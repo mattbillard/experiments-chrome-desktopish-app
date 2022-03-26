@@ -5,9 +5,9 @@
 </head>
 <body>
   <div class="top-bar">
-    <button onclick="childApp.commandParent('minimize')">_</button>
-    <button onclick="childApp.commandParent('maximize')">□</button>
-    <button onclick="childApp.commandParent('close')">X</button>
+    <button onclick="childApp.messageParent('minimize')">_</button>
+    <button onclick="childApp.messageParent('maximize')">□</button>
+    <button onclick="childApp.messageParent('close')">X</button>
   </div>
 
   <div class="content">
@@ -28,8 +28,8 @@
       <li>Chrome will automatically open the app if the URL equals url_handlers.openApp.matches in manifest.json</li>
     </ul>
 
-    <button onclick="childApp.commandParent('openWindow')">Open New Window</button> 
-    <button onclick="childApp.commandParent('reloadAll')">Reload All</button> 
+    <button onclick="childApp.messageParent('openWindow')">Open New Window</button> 
+    <button onclick="childApp.messageParent('reloadAll')">Reload All</button> 
     <br>
     <br>
 
