@@ -1,63 +1,51 @@
-document.name = 'childWindow';
 window.name = 'childWindow';
-window.id = 'childWindow';
 
 console.log('// Child');
 
-var parentWindow;
-var parentOrigin;
-
-
-window.addEventListener("message", (event) => {
-  console.log("....window message received:", event.data);
-
-  // First message: store parentWindow and parentOrigin
-  if (!parentWindow || !parentOrigin) {
-    parentWindow = event.source;
-    parentOrigin = event.origin;
-
-    console.log('....sending handShakeReplyToParent')
-    // parentWindow.postMessage({ command: "handShakeReplyToParent", }, parentOrigin);
-    parentWindow.postMessage({ command: "handShakeReplyToParent", }, '*');
-  }
-
-  switch (event.data.command) {
-    case 'broadcastFromParent': {
-      const { message } = event.data;
-      const messagesElem = window.messages;
-      messagesElem.innerHTML += `\n${message}`;
-      messagesElem.classList.add('flash');
-      setTimeout(() => messagesElem.classList.remove('flash'), 250);
-      break;
-    }
-
-  }
-});
-
-
-
 class ChildApp {
-  broadcast(event) {
+  parentWindow;
+
+  constructor() {
+    this.addEventListeners();
+  }
+
+  addEventListeners() {
+    window.addEventListener("message", (event) => {
+      console.log("....window message received:", event.data);
+    
+      // NOTE: store this.parentWindow and this.parentOrigin from first message
+      if (!this.parentWindow) {
+        this.parentWindow = event.source;
+      }
+    
+      switch (event.data.command) {
+        case 'broadcastFromParent': {
+          this.outputBroadcastFromParent(event);
+          break;
+        }
+      }
+    });    
+  };
+
+  broadcastToParent(event) {
     event.preventDefault();
-    const message = myInput.value || '';
-    parentWindow.postMessage({ 
-      command: 'broadcast', 
+    const message = myInput.value;
+    this.parentWindow.postMessage({ 
+      command: 'broadcastFromChild', 
       message 
     }, '*');
+  };
+
+  commandParent(command) {
+    this.parentWindow.postMessage({ command }, '*');
   }
-  close() {
-    parentWindow.postMessage({ command: 'close' }, '*');
-  }
-  minimize() {
-    parentWindow.postMessage({ command: 'minimize' }, '*');
-  }
-  maximize() {
-    parentWindow.postMessage({ command: 'maximize' }, '*');
-  }
-  openWindow () {
-    parentWindow.postMessage({
-      command: 'openWindow',
-    }, '*');
+
+  outputBroadcastFromParent(event) {
+    const { message } = event.data;
+    const messagesElem = window.messages;
+    messagesElem.innerHTML += `\n${message}`;
+    messagesElem.classList.add('flash');
+    setTimeout(() => messagesElem.classList.remove('flash'), 250);
   }
 }
 

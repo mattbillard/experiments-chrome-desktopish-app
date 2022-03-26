@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "first-app2",
+  "name": "Chrome Desktopish App",
   "version": "1",
   "icons": {
     "128": "./src/icon_128.png"
@@ -10,19 +10,13 @@
       "scripts": ["background.js"]
     }
   },
-  "minimum_chrome_version": "28",
   "permissions": [ 
-    "webview", 
-    "storage", 
-    "contextMenus", 
-    "alwaysOnTopWindows", 
-    "unlimitedStorage", 
-    "browser"
+    "webview" 
   ],
   "url_handlers": {
     "openApp": {
       "matches": [
-        "http://localhost:3000/desktop/*"
+        "http://localhost:3000/open/*"
       ],
       "title": "Open App"
     }

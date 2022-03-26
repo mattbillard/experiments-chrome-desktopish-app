@@ -7,29 +7,13 @@
 <body>
   <div class="drag"></div>
 
+  <iframe id="container" ></iframe>
   <!-- 
-    <webview 
-      id="webview" 
-      class="background webview" 
-      id="panel-container" 
-      partition="persist:framelessapps" 
-      frameborder="0"
-      allowtransparency="on"
-    ></webview>
+    NOTE: webview also works but has some small differences and requires more debugger windows
+    <webview id="container" allowtransparency="on" ></webview>
   -->
-  <iframe 
-    id="webview" 
-    class="background webview" 
-    id="panel-container" 
-    partition="persist:framelessapps" 
-    frameborder="0"
-    allowtransparency="on"
-  ></iframe>
 
+  <!-- NOTE: Chrome only allows local scripts. Can't even do inline JavaScript on elements -->
   <script src="./script.js"></script>
-
-  <!-- DOES NOT WORK. Chrome Apps have strict CSP settings -->
-  <!-- <script src="http://localhost:3000/test.js"></script> -->
-
 </body>
 </html>

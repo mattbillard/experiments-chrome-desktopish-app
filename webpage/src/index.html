@@ -5,9 +5,9 @@
 </head>
 <body>
   <div class="top-bar">
-    <button onclick="childApp.minimize()">_</button>
-    <button onclick="childApp.maximize()">□</button>
-    <button onclick="childApp.close()">X</button>
+    <button onclick="childApp.commandParent('minimize')">_</button>
+    <button onclick="childApp.commandParent('maximize')">□</button>
+    <button onclick="childApp.commandParent('close')">X</button>
   </div>
 
   <div class="content">
@@ -24,12 +24,16 @@
       <li>Send messages between windows</li>
       <li>User does not have to install any new apps like Electron, etc</li>
       <li>Most code changes do not require updates to user's computer</li>
+      <li>It would be quite easy to run local, dev, QA, and prod versions simultaneously</li>
+      <li>Chrome will automatically open the app if the URL equals url_handlers.openApp.matches in manifest.json</li>
     </ul>
 
-    <button onclick="childApp.openWindow()">Open New Window</button> <br>
+    <button onclick="childApp.commandParent('openWindow')">Open New Window</button> 
+    <button onclick="childApp.commandParent('reloadAll')">Reload All</button> 
+    <br>
     <br>
 
-    <form onsubmit="childApp.broadcast(event)">
+    <form onsubmit="childApp.broadcastToParent(event)">
       <input type="text" id="myInput" name="myInput" value="Hello" /> 
       <button type="submit">Broadcast</button> <br>
     </form>
@@ -39,6 +43,8 @@
 
 
   <script>
+    // NOTE: Chrome caches aggressively, so we add a random string to the end of URLs below
+
     var script = document.createElement('link');
     Object.assign(script, { rel: "stylesheet", href: `./styles.css?${Date.now()}` });
     document.head.append(script);

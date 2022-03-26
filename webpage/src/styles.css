@@ -5,33 +5,32 @@ body {
 }  
 
 .top-bar {
-  height: 20px;
   background: #222;
-  -webkit-app-region: drag; /* NOTE: unfortunately, the dragable area in the iframe does not work */
-  /* -webkit-user-select: none; */
-  text-align: right;
   color: #fff;
+  height: 20px;
   padding: 4px;
+  text-align: right;
+  /* -webkit-app-region: drag; NOTE: unfortunately, the dragable area in the iframe does not work */
 }
 
 .top-bar button {
-  border: solid 1px #999;
   background-color: transparent;
-  color: #bbb;
   border-radius: 2px;
+  border: solid 1px #999;
+  color: #bbb;
 }
 
 .content {
-  padding: 10px;
   color: #333;
   font-size: 14px;
+  padding: 10px;
 }
 
 .content input {
   border-radius: 0.25rem;
   border: solid 1px #ddd;
-  padding: 4px 4px;
   margin-bottom: 2px;
+  padding: 4px 4px;
 }
 
 .content button {
@@ -39,18 +38,18 @@ body {
   border-radius: 0.25rem;
   border: 1px solid #bbb;
   color: #fff;
-  padding: 4px 4px;
   margin-bottom: 2px;
+  padding: 4px 4px;
 }
 
 pre {
-  padding: 10px;
-  border: solid 1px #bbb;
   background: #eee;
   border-radius: 5px;
+  border: solid 1px #bbb;
+  padding: 10px;
 }
 
 pre.flash {
-  border: solid 1px #eee;
   background: #fff;
+  border: solid 1px #eee;
 }

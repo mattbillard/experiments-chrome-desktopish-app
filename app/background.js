@@ -1,33 +1,28 @@
+window.name = 'backgroundWindow';
 
-document.name = 'grandparentWindow';
-window.name = 'grandparentWindow';
-window.id = 'grandparentWindow';
+console.log('// background.js');
 
-console.log('// Grandparent');
-
-window.addEventListener("message", (event) => {
-  console.log("....window message received:", event.data);
-});
-
+// On launch open, 2 windows for demo
 chrome.app.runtime.onLaunched.addListener(() => {
-  chrome.app.window.create('./src/index.html', { // Chrome insists URL must be local
+  chrome.app.window.create('./src/index.html', { // NOTE: Chrome insists URL must be local
     id: 'parentAppWindow1',
     bounds: { width: 500, height: 800 },
-    frame: 'none', // Important: removes Chrome close, minimize, maximize button
+    frame: 'none', // NOTE: removes Chrome close, minimize, maximize button
   });
-  chrome.app.window.create('./src/index.html', { // Chrome insists URL must be local
+  
+  chrome.app.window.create('./src/index.html', {
     id: 'parentAppWindow2',
     bounds: { width: 500, height: 600 },
-    frame: 'none', // Important: removes Chrome close, minimize, maximize button
+    frame: 'none',
   });
 });
 
-
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  console.log('....runtime message received:', request);
+  console.log('background: runtime message received:', request);
 
-  if (request.command === 'helloGrandparent') {
-    console.log('....sending helloParent')
-    sendResponse('....helloParent');
+  switch(request.command) {
+    case 'reloadAll':
+      chrome.runtime.reload();
+      break;
   }
 });
