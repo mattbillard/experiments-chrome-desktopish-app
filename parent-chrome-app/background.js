@@ -6,7 +6,7 @@ console.log('// background.js');
 chrome.app.runtime.onLaunched.addListener(() => {
   chrome.app.window.create('./src/index.html', { // NOTE: Chrome insists URL must be local
     id: 'parentAppWindow1',
-    bounds: { width: 500, height: 800 },
+    bounds: { width: 500, height: 600 },
     frame: 'none', // NOTE: removes Chrome close, minimize, maximize button
   });
   

@@ -6,7 +6,7 @@ class ParentApp {
   iframeElem = document.getElementById("container");
 
   constructor() {
-    this.addChromeListeners(); // NOTE: Chrome app window listenes for broadcasts from other Chrome app windows
+    this.addChromeListeners(); // NOTE: Chrome app window listens for broadcasts from other Chrome app windows
     this.addWindowListeners(); // NOTE: parent window listens to messages from iframe child window
     
     // NOTE: load iframe
