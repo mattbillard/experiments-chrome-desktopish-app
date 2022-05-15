@@ -46,11 +46,11 @@
     // NOTE: Chrome caches aggressively, so we add a random string to the end of URLs below
 
     var script = document.createElement('link');
-    Object.assign(script, { rel: "stylesheet", href: `./styles.css?${Date.now()}` });
+    Object.assign(script, { rel: "stylesheet", href: `./child.css?${Date.now()}` });
     document.head.append(script);
 
     var script = document.createElement('script');
-    Object.assign(script, { src: `./script.js?${Date.now()}` });
+    Object.assign(script, { src: `./child.js?${Date.now()}` });
     document.body.append(script);
   </script>
 

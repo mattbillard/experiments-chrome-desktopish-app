@@ -98,3 +98,10 @@ COMMUNICATION
 
 
 
+/Users/mattbillard/Applications/Chrome\ Apps.localized/Chrome \Apps/
+
+
+- ReadMe 
+  - Version of Chrome / Chromium 
+
+
